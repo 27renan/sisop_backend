@@ -12,4 +12,6 @@ router.post('/users', validateSchema(createUserSchema), new CreateUserController
 // Rota session (login)
 router.post('/session', validateSchema(authUserSchema), new SessionUserController().handle);
 
+// demais rotas...
+
 export { router };
