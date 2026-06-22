@@ -1,0 +1,105 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+// Para criar uma migrate, rode: `npx prisma migrate dev`
+// npx prisma generate
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  USER
+  MANAGER
+}
+
+model User{
+  id String @id @default(uuid())
+  nome String
+  email String @unique
+  senha String
+  role Role @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  cod_unidade Int?
+  unidade Unidade? @relation( fields: [cod_unidade], references: [cd_unidade], onDelete: SetNull)
+
+  @@map("users")
+}
+
+model Unidade {
+  cd_unidade Int @id @default(autoincrement())
+  nome String
+  sigla String
+  endereco String
+  cidade String
+  bairro String
+  numero Float
+  estado String
+
+  users User[]
+
+  @@map("unidades")
+}
+
+model Obras{
+  id String @id @default(uuid())
+  id_cipi String
+  tipo_obra String
+  nome String
+  servico String
+  empresa_contratada String
+  descricao String
+  om String
+  estado String
+  cidade String
+  inicio_obra DateTime
+  final_obra DateTime
+  status String
+
+  @@map("obras")
+}
+
+model Terreno{
+  id String @id @default(uuid())
+  situacao String
+  utilizado Boolean
+  resp_administrativo String
+  tombo String
+  area Float
+  ocup_indevida Boolean
+  enderco String
+  numero String
+  bairro String
+  cidade String
+  estado String
+  complementento String
+  valor_aquisicao Float
+  data_aquisicao DateTime
+
+  benfeitorias Benfeitoria[]
+
+  @@map("terrenos")
+}
+
+model Benfeitoria{
+  id String @id @default(uuid())
+  apelido String
+  situacao String
+  conservacao String
+  tipo String
+
+  terreno_id String
+  terreno Terreno @relation(fields:[terreno_id], references:[id], onDelete: Restrict)
+  
+
+  @@map("benfeitorias")
+}
