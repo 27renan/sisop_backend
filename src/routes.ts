@@ -9,6 +9,8 @@ import { DashboardObrasController } from './controllers/dashboard/DasboardObrasC
 import { DashboardTerrenosController } from './controllers/dashboard/DashboardTerrenosController';
 import { DashboardBenfeitoriasController } from './controllers/dashboard/DashboardBenfeitoriasController';
 import { CreateObrasController } from './controllers/obras/CreateObrasController';
+import { GetObraController } from './controllers/obras/GetObraController';
+import { EditObraController } from './controllers/obras/EditObraController';
 
 const router = Router();
 
@@ -31,7 +33,13 @@ router.get('/dashboard/terrenos', isAuthenticated, new DashboardTerrenosControll
 router.get('/dashboard/benfeitorias', isAuthenticated, new DashboardBenfeitoriasController().handle);
 
 // Rota para cadastrar uma nova obra
-router.post('/nova-obras', isAuthenticated, new CreateObrasController().handle);
+router.post('/create/obra', isAuthenticated, new CreateObrasController().handle);
+
+// Rota para retornar uma obra especifica pelo ID
+router.get('/obra/:id', isAuthenticated, new GetObraController().handle);
+
+// Rota para editar uma obra
+router.put('/obra/:id', isAuthenticated, new EditObraController().handle);
 
 // demais rotas...
 

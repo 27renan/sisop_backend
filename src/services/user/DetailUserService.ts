@@ -7,7 +7,7 @@ class DetailUserService {
         id: user_id,
       },
       select: {
-        id: true,
+        id: false,
         nome: true,
         email: true,
         role: true,

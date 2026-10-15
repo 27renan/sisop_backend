@@ -1,14 +1,23 @@
 import { Request, Response } from 'express';
 import { CreateObrasService } from '../../services/obras/CreateObrasService';
+import { Obra } from '../../models/obra';
 
 class CreateObrasController {
   async handle(req: Request, res: Response) {
-    const obra = req.body;
+    try {
+      const obra: Obra = req.body;
 
-    const createObrasService = new CreateObrasService();
-    const obras = await createObrasService.execute(obra);
+      const service = new CreateObrasService();
 
-    return res.json(obras);
+      const novaObra = await service.execute(obra);
+
+      return res.status(201).json(novaObra);
+    } catch (error) {
+      console.error(error);
+      return res.status(500).json({
+        error: 'Erro ao cadastrar obra',
+      });
+    }
   }
 }
 
