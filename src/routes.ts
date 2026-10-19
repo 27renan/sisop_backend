@@ -11,6 +11,7 @@ import { DashboardBenfeitoriasController } from './controllers/dashboard/Dashboa
 import { CreateObrasController } from './controllers/obras/CreateObrasController';
 import { GetObraController } from './controllers/obras/GetObraController';
 import { EditObraController } from './controllers/obras/EditObraController';
+import { DeleteObraController } from './controllers/obras/DeleteObraController';
 
 const router = Router();
 
@@ -40,6 +41,9 @@ router.get('/obra/:id', isAuthenticated, new GetObraController().handle);
 
 // Rota para editar uma obra
 router.put('/obra/:id', isAuthenticated, new EditObraController().handle);
+
+// Rota para deletar uma obra
+router.delete('/obra/:id', isAuthenticated, new DeleteObraController().handle);
 
 // demais rotas...
 
